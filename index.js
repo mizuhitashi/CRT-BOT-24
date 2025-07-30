@@ -29,6 +29,20 @@ server.post('/api/messages', async (req, res) => {
     console.log('>>> POST /api/messages');
     await adapter.process(req, res, async (context) => {
         console.log('>>> Bot received a message');
-        await context.sendActivity(`こんにちは！Botが応答しています。`);
+
+        const userMessage = context.activity.text?.trim();
+        const locstion_text = '掃除場所の説明';
+        const task_text = '掃除の種類の説明';
+        const command_text = 'コマンドの説明';
+                
+       if (userMessage === '/location') {
+            await context.sendActivity(locstion_text);
+        } else if (userMessage === '/task') {
+            await context.sendActivity(task_text);
+        } else if (userMessage === '/command') {
+            await context.sendActivity(command_text);
+        } else {
+            await context.sendActivity('そのコマンドはありません。なにいってんの？');
+        }
     });
 });
