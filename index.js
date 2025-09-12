@@ -21,8 +21,9 @@ adapter.onTurnError = async (context, error) => {
 const server = restify.createServer();
 server.use(restify.plugins.bodyParser());
 
-server.listen(3978, () => {
-    console.log(`Bot is running on http://localhost:3978`);
+const port = process.env.PORT || process.env.port || 3978;
+server.listen(port, () => {
+  console.log(`Bot is running on http://localhost:${port}`);
 });
 
 server.post('/api/messages', async (req, res) => {
